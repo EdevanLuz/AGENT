@@ -1,4 +1,4 @@
-import { callModel } from "@openrouter/agent";
+import { createAgent } from "@openrouter/agent";
 
 import { ferramenta_clima } from "./ferramentas/ferramenta_clima";
 
@@ -11,6 +11,6 @@ Sempre use ferramentas quando necessário.
 `,
 
     tools: {
-        clima: ferramenta_clima,
+        ferramenta_clima: ferramenta_clima,
     },
 });

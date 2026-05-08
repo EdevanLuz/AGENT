@@ -1,9 +1,9 @@
-import { createAgent } from "@openrouter/agent";
+import { Agent } from "@openrouter/agent";
 
 import { ferramenta_clima } from "./ferramentas/ferramenta_clima";
 
-export const agente = createAgent({
-    model: "openai/gpt-4.1-mini",
+export const agente = new Agent({
+    model: "openrouter/free",
 
     system: `
 Você é um assistente útil.

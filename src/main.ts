@@ -5,7 +5,7 @@ async function executar() {
         messages: [
             {
                 role: "user",
-                content: "Como está o clima em Torres?",
+                content: "E aí! Como tá o clima em Torres?",
             },
         ],
     });

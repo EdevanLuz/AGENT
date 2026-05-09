@@ -14,7 +14,7 @@ export const ferramenta_terminal = tool({
       const output = execSync(comando).toString();
       return { output, sucesso: true };
     } catch (error) {
-      return { erro: error.message, sucesso: false };
+      return { erro: error instanceof Error ? error.message : String(error), sucesso: false };
     }
   },
 });

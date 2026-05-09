@@ -10,7 +10,7 @@ dotenv.config();
 
 export const meuAgente = new Agent({
   apiKey: process.env.OPENROUTER_API_KEY,
-  model: "openrouter/auto",
+  model: "inclusionai/ring-2.6-1t:free",
     instructions: `
 Você é um especialista em extração de leads e automação.
 
@@ -34,4 +34,4 @@ REGRAS ABSOLUTAS:
 - Sempre salve em CSV, independente do que o usuário pedir.
 `,
 
-tools: [ferramenta_google_leads, ferramenta_csv]
+tools: [ferramenta_google_leads, ferramenta_csv]});

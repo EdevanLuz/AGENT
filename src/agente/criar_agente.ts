@@ -1,16 +1,12 @@
-import { Agent } from "@openrouter/agent";
+import { Agent } from "./agent.js"; // Importa o arquivo que você criou no Passo 1
+import { ferramenta_clima } from "./ferramentas/ferramenta_clima.js";
+import dotenv from "dotenv";
 
-import { ferramenta_clima } from "./ferramentas/ferramenta_clima";
+dotenv.config();
 
-export const agente = new Agent({
-    model: "openrouter/free",
-
-    system: `
-Você é um assistente útil.
-Sempre use ferramentas quando necessário.
-`,
-
-    tools: {
-        ferramenta_clima: ferramenta_clima,
-    },
+export const meuAgente = new Agent({
+  apiKey: process.env.OPENROUTER_API_KEY,
+  model: "openrouter/auto",
+  instructions: "Você é um assistente de clima amigável.",
+  tools: [ferramenta_clima], // IMPORTANTE: Aqui tem que ser um Array []
 });

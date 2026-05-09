@@ -1,16 +1,11 @@
-import { agente } from "./agente/criar_agente";
+import { meuAgente } from "./agente/criar_agente.js";
 
-async function executar() {
-    const resposta = await agente.run({
-        messages: [
-            {
-                role: "user",
-                content: "E aí! Como tá o clima em Torres?",
-            },
-        ],
-    });
-
-    console.log(resposta.text);
+async function iniciar() {
+  console.log("🤖 Agente iniciado...");
+  
+  const resposta = await meuAgente.send("Como está o tempo em Torres?");
+  
+  console.log("Resposta do Agente:", resposta);
 }
 
-executar();
+iniciar().catch(console.error);

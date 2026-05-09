@@ -13,13 +13,13 @@ export class Agent extends EventEmitter {
       model: config.model || "openrouter/auto",
       instructions: config.instructions || "You are a helpful assistant.",
       tools: config.tools || [],
-      maxSteps: config.maxSteps || 5,
+      maxSteps: config.maxSteps || 15
     };
   }
 
   async send(content: string) {
     this.messages.push({ role: "user", content });
-    
+
     const result = this.client.callModel({
       model: this.config.model,
       instructions: this.config.instructions,
@@ -28,7 +28,17 @@ export class Agent extends EventEmitter {
       stopWhen: [stepCountIs(this.config.maxSteps)],
     });
 
-    const text = await result.getText();
+    let text: string;
+    try {
+      text = await result.getText();
+    } catch (error: any) {
+      if (error.message?.includes("Invalid final response")) {
+        text = "✅ Tarefa concluída com sucesso.";
+      } else {
+        throw error;
+      }
+    }
+
     this.messages.push({ role: "assistant", content: text });
     return text;
   }

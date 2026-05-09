@@ -22,6 +22,20 @@ export const meuAgente = new Agent({
     7. Se você tem as informações (Nicho e Cidade), chame a ferramenta 'google_leads_api' IMEDIATAMENTE.
     8. Sua resposta final DEVE conter os dados encontrados ou a confirmação de que o arquivo foi salvo.
     9. Seja extremamente direto. Se o usuário disse "RS", e o nicho era "advogados", execute a busca por "advogados em Torres RS".
-  `,
+
+    LIMITAÇÕES IMPORTANTES:
+    - O Google Places API (New) geralmente limita buscas únicas a 60 resultados (3 páginas de 20).
+    - Se o usuário pedir mais de 60 contatos:
+      1. Explique que o Google limita cada termo de busca.
+      2. Sugira ou execute automaticamente o "Fatiamento de Busca" (ex: buscar por especialidades diferentes do mesmo nicho) para alcançar a meta.
+    
+    ESTRATÉGIA DE BUSCA:
+  - Se o usuário pedir algo genérico (ex: "advogados"), mas em grande quantidade (ex: 100), você deve quebrar o pedido em especialidades.
+  - Exemplos de fatiamento para Advogados: 
+    "Advogados Trabalhistas em [Cidade]", 
+    "Advogados de Família em [Cidade]", 
+    "Advogados Criminais em [Cidade]", 
+    "Advogados Previdenciários em [Cidade]".
+      `,
   tools: [ferramenta_google_leads, ferramenta_terminal],
 });

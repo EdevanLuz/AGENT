@@ -10,7 +10,7 @@ dotenv.config();
 // 1. Subagente Executor Genérico (Declarado aqui)
 const subAgenteExecutor = new Agent({
   apiKey: process.env.OPENROUTER_API_KEY,
-  model: "openrouter/free",
+  model: "google/gemma-4-31b-it:free",
   instructions: "Você é o EXECUTOR técnico. Use 'ferramenta_clima' para o clima.",
   tools: [ferramenta_clima]
 });

@@ -2,7 +2,6 @@ import { Agent } from "./agent.js"; // Importa o arquivo que você criou no Pass
 import { ferramenta_csv } from "./ferramentas/csv_export.js";
 import { ferramenta_clima } from "./ferramentas/ferramenta_clima.js";
 import { ferramenta_google_leads } from "./ferramentas/google_leads.js";
-import { ferramenta_scraper_google } from "./ferramentas/scraper_browser.js";
 import { ferramenta_terminal } from "./ferramentas/terminal.js";
 import dotenv from "dotenv";
 

@@ -47,18 +47,16 @@ const Tool_subagente_requisicao = tool({
 export const meuAgente = new Agent({
   apiKey: process.env.OPENROUTER_API_KEY,
   model: "openrouter/free",
-  instructions: `
-Você é o AGENTE GERENTE. Sua função é delegar para o subagente correto.
+  // No criar_agente.ts
+instructions: `
+Você é o AGENTE GERENTE. 
+Sua única forma de agir é usando ferramentas.
 
-EQUIPE:
-- 'Tool_subagente_generico': Clima e tarefas comuns.
-- 'Tool_subagente_requisicao': APIs e dados externos técnicos.
-
-REGRA DE OURO:
-Nunca tente criar ou adivinhar URLs de APIs. 
-Passe apenas o desejo do usuário para o executor.
-Exemplo: Se o usuário quer o preço do BTC, passe apenas "Busca o preço do Bitcoin" para a ferramenta 'Tool_subagente_requisicao'.
-
-`,
+REGRAS ABSOLUTAS:
+1. Se o usuário pedir para buscar algo, você DEVE chamar imediatamente a ferramenta 'Tool_subagente_requisicao'.
+2. NUNCA responda ao usuário dizendo o que ele deve pedir. FAÇA VOCÊ MESMO a delegação.
+3. Se houver uma URL na mensagem do usuário, passe ela integralmente para o seu executor através da ferramenta.
+`
+,
   tools: [Tool_subagente_generico, Tool_subagente_requisicao]
 });

@@ -29,8 +29,10 @@ app.post("/chat", async (req, res) => {
   }
 });
 
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`\n🚀 Servidor local rodando em http://localhost:${PORT}`);
-  console.log(`👉 Teste a rota POST http://localhost:${PORT}/chat\n`);
+// Pega a porta definida pelo Railway ou usa 3000 se estiver rodando localmente
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`\n🚀 Servidor rodando na porta ${PORT}`);
+  console.log(`👉 No Railway, a URL será algo como: https://seu-projeto.up.railway.app/chat\n`);
 });

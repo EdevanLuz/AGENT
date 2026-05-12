@@ -2,62 +2,55 @@ import { Agent } from "./agent.js";
 import { tool } from "@openrouter/agent";
 import { z } from "zod";
 import { ferramenta_clima } from "./ferramentas/ferramenta_clima.js";
-import { subAgenteRequisicoes } from "./subagente_requisicao.js";
-
+import { subAgenteRequisicoes } from "./subagente_requisicao.js"; // Importando o que você criou
 import dotenv from "dotenv";
 
 dotenv.config();
 
-// --- SUBAGENTE GENÉRICO (Declarado direto aqui) ---
-const subAgenteGenerico = new Agent({
+// 1. Subagente Executor Genérico (Declarado aqui)
+const subAgenteExecutor = new Agent({
   apiKey: process.env.OPENROUTER_API_KEY,
   model: "openrouter/free",
-  instructions: "Você é o EXECUTOR GENÉRICO. Resolva tarefas gerais e use a ferramenta de clima quando necessário.",
+  instructions: "Você é o EXECUTOR técnico. Use 'get_weather' para o clima.",
   tools: [ferramenta_clima]
 });
 
-// --- TOOLS DO GERENTE (Seguindo o padrão Tool_subagente_...) ---
-
+// 2. Ferramenta para o Gerente chamar o Executor Genérico (Clima)
 const Tool_subagente_generico = tool({
   name: "Tool_subagente_generico",
-  description: "Delega tarefas gerais, resumos ou consultas de clima.",
+  description: "Delega tarefas gerais ou clima para o executor genérico.",
   inputSchema: z.object({
-    comando: z.string().describe("O comando para o assistente genérico"),
+    comando: z.string().describe("O comando para o executor"),
   }),
   execute: async ({ comando }) => {
     console.log(`\n👨‍💼 Gerente -> 🤖 Genérico: ${comando}`);
-    const resposta = await subAgenteGenerico.send(comando);
+    const resposta = await subAgenteExecutor.send(comando);
     return { resultado: resposta };
   },
 });
 
+// 3. Ferramenta para o Gerente chamar o Especialista em Requisições
 const Tool_subagente_requisicao = tool({
   name: "Tool_subagente_requisicao",
-  description: "realiza chamadas de APIs.",
+  description: "Delega tarefas de APIs e dados externos para o especialista.",
   inputSchema: z.object({
     comando: z.string().describe("A instrução para o especialista em APIs"),
   }),
   execute: async ({ comando }) => {
     console.log(`\n👨‍💼 Gerente -> 🌐 Requisição: ${comando}`);
-    const resposta = await subAgenteRequisicoes.send(comando);
+    const resposta = await subAgenteRequisicoes.send(comando); // Note o S no final
     return { resultado: resposta };
   },
 });
 
-// --- AGENTE GERENTE (O CHEFE) ---
+// 4. Agente Gerente (O Chefe)
 export const meuAgente = new Agent({
   apiKey: process.env.OPENROUTER_API_KEY,
   model: "openrouter/free",
-  // No criar_agente.ts
-instructions: `
-Você é o AGENTE GERENTE. 
-Sua única forma de agir é usando ferramentas.
-
-REGRAS ABSOLUTAS:
-1. Se o usuário pedir para buscar algo, você DEVE chamar imediatamente a ferramenta 'Tool_subagente_requisicao'.
-2. NUNCA responda ao usuário dizendo o que ele deve pedir. FAÇA VOCÊ MESMO a delegação.
-3. Se houver uma URL na mensagem do usuário, passe ela integralmente para o seu executor através da ferramenta.
-`
-,
+  instructions: `
+Você é o AGENTE GERENTE. Delegue sempre.
+Use 'Tool_subagente_generico' para clima.
+Use 'Tool_subagente_requisicao' para APIs e preços.
+`,
   tools: [Tool_subagente_generico, Tool_subagente_requisicao]
 });

@@ -46,7 +46,7 @@ const Tool_subagente_requisicao = tool({
 // 4. Agente Gerente (O Chefe)
 export const meuAgente = new Agent({
   apiKey: process.env.OPENROUTER_API_KEY,
-  model: "openrouter/free",
+  model: "google/gemma-4-31b-it:free",
   instructions: `
 Você é o AGENTE GERENTE. Delegue sempre.
 Use 'Tool_subagente_generico' para clima.

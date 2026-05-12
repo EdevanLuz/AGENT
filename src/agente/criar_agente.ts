@@ -2,7 +2,8 @@ import { Agent } from "./agent.js";
 import { tool } from "@openrouter/agent";
 import { z } from "zod";
 import { ferramenta_clima } from "./ferramentas/ferramenta_clima.js";
-import { subAgenteRequisicoes } from "./subagente_requisicao.js"; // Importando o que já existe no seu repo
+import { subAgenteRequisicoes } from "./subagente_requisicao.js";
+
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -38,7 +39,7 @@ const Tool_subagente_requisicao = tool({
   }),
   execute: async ({ comando }) => {
     console.log(`\n👨‍💼 Gerente -> 🌐 Requisição: ${comando}`);
-    const resposta = await subAgenteRequisicao.send(comando);
+    const resposta = await subAgenteRequisicoes.send(comando);
     return { resultado: resposta };
   },
 });

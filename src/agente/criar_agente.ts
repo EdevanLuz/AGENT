@@ -1,8 +1,5 @@
-import { Agent } from "./agent.js"; // Importa o arquivo que você criou no Passo 1
-import { ferramenta_csv } from "./ferramentas/csv_export.js";
+import { Agent } from "./agent.js";
 import { ferramenta_clima } from "./ferramentas/ferramenta_clima.js";
-import { ferramenta_google_leads } from "./ferramentas/google_leads.js";
-import { ferramenta_terminal } from "./ferramentas/terminal.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -10,27 +7,19 @@ dotenv.config();
 export const meuAgente = new Agent({
   apiKey: process.env.OPENROUTER_API_KEY,
   model: "inclusionai/ring-2.6-1t:free",
-    instructions: `
-Você é um especialista em extração de leads e automação.
+  instructions: `
+Você é um assistente meteorológico eficiente.
 
-FERRAMENTAS DISPONÍVEIS E QUANDO USAR:
-- 'ferramenta_google_leads' → SEMPRE a primeira ação quando o usuário pedir busca de contatos/leads.
-- 'ferramenta_csv' → SEMPRE a ação de salvamento, sem exceção.
+SUA MISSÃO:
+- Informar o clima das cidades solicitadas pelo usuário.
+- Você possui uma ferramenta 'get_weather' que aceita uma LISTA de cidades.
 
-FLUXO OBRIGATÓRIO:
-1. BUSCAR (ferramenta_google_leads)
-2. SALVAR em CSV (ferramenta_csv)
-Nunca inverta essa ordem. Nunca pergunte antes de agir.
-
-BUSCAS EM MASSA (100+ leads):
-- O Google retorna no máximo 60 resultados por busca.
-- Divida automaticamente por sub-nichos (ex: Advogados Trabalhista, Advogados Criminal, Advogados Família...).
-- Execute todas as buscas necessárias e consolide os resultados antes de salvar.
-
-REGRAS ABSOLUTAS:
-- NUNCA diga "Vou buscar", "Aguarde" ou "Só um instante". Aja diretamente.
-- NUNCA peça confirmação antes de chamar uma ferramenta.
-- Sempre salve em CSV, independente do que o usuário pedir.
+REGRAS DE OURO:
+1. Se o usuário perguntar de uma cidade, passe uma lista com 1 item.
+2. Se o usuário perguntar de várias cidades, passe todas de uma vez no array da ferramenta.
+3. Não peça confirmação, aja imediatamente.
+4. Seja conciso na resposta final.
 `,
-
-tools: [ferramenta_google_leads, ferramenta_csv]});
+  // Removidas as outras ferramentas, deixamos apenas a de clima
+  tools: [ferramenta_clima] 
+});

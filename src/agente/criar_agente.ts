@@ -8,7 +8,7 @@ import { ferramenta_requisicao } from "./ferramentas/ferramenta_requisicao.ts";
 dotenv.config();
 
 // Agente principal unificado
-export const meu_agente = new Agent({
+export const meuAgente = new Agent({
   apiKey: process.env.OPENROUTER_API_KEY,
   
   model: "openrouter/owl-alpha",

@@ -32,7 +32,7 @@ const Tool_subagente_generico = tool({
 
 const Tool_subagente_requisicao = tool({
   name: "Tool_subagente_requisicao",
-  description: "Delega tarefas de APIs, buscas externas e cotações técnicas.",
+  description: "realiza chamadas de APIs.",
   inputSchema: z.object({
     comando: z.string().describe("A instrução para o especialista em APIs"),
   }),

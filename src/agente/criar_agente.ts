@@ -1,6 +1,6 @@
 import { Agent } from "./agent.js";
-import { ferramenta_clima,ferramenta_requisicao} from "./ferramentas/ferramenta_clima.js";
-import { subAgenteRequisicoes } from "./subagente_requisicao.js"; // Importando a lógica de requisições
+import {ferramenta_clima} from "./ferramentas/ferramenta_clima.ts";
+import {ferramenta_requisicao} from "./ferramentas/ferramenta_requisicao.ts
 import dotenv from "dotenv";
 
 dotenv.config();

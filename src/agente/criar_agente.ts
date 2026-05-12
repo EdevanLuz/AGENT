@@ -11,7 +11,7 @@ dotenv.config();
 const subAgenteExecutor = new Agent({
   apiKey: process.env.OPENROUTER_API_KEY,
   model: "openrouter/free",
-  instructions: "Você é o EXECUTOR técnico. Use 'get_weather' para o clima.",
+  instructions: "Você é o EXECUTOR técnico. Use 'ferramenta_clima' para o clima.",
   tools: [ferramenta_clima]
 });
 

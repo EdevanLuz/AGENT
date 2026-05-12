@@ -58,7 +58,6 @@ REGRA DE OURO:
 Nunca tente criar ou adivinhar URLs de APIs. 
 Passe apenas o desejo do usuário para o executor.
 Exemplo: Se o usuário quer o preço do BTC, passe apenas "Busca o preço do Bitcoin" para a ferramenta 'Tool_subagente_requisicao'.
-`
 
 `,
   tools: [Tool_subagente_generico, Tool_subagente_requisicao]

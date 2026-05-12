@@ -1,5 +1,5 @@
 import { Agent } from "./agent.js";
-import { ferramenta_requisicao } from "../ferramentas/ferramenta_requisicao.js";
+import { ferramenta_requisicao } from "./ferramentas/ferramenta_requisicao.js";
 
 export const subAgenteRequisicoes = new Agent({
   apiKey: process.env.OPENROUTER_API_KEY,

@@ -2,7 +2,7 @@ import { Agent } from "./agent.js";
 import { tool } from "@openrouter/agent";
 import { z } from "zod";
 import { ferramenta_clima } from "./ferramentas/ferramenta_clima.js";
-import { subAgenteRequisicao } from "./subagente_requisicao.js"; // Importando o que já existe no seu repo
+import { subAgenteRequisicoes } from "./subagente_requisicao.js"; // Importando o que já existe no seu repo
 import dotenv from "dotenv";
 
 dotenv.config();
